@@ -1,0 +1,133 @@
+
+
+    HRS SCALER ANALYSIS 
+    ====================
+
+ This file :  ~adaq/$EXPERIMENT/scaler/README
+ R. Michaels,  Updated Mar 2005
+
+ This involves the scalers from L-arm and R-arm HRS.
+ It is not necessarily applicable to the TS2 scalers (SRC Trig. Super.)
+ You can do the following operations on adaql4 :
+
+ 1. STRIP CHART(s)
+ ================
+
+  The strip chart is a macro to show scalers and ratios of scalers.
+  The data are obtained online directly from VME.  
+  You can invoke the strip chart software from the ROOT prompt 
+  as follows
+
+       root   .x   strip.C
+
+  and don't forget the dot(.) before the x
+
+  The X axis is the time in seconds since the chart was started.
+
+
+ 2. XSCALER DISPLAY  (including chart graphs)
+ ==================
+
+     "./xscaler Left"  or  "./xscaler Right"
+                       or  "./xscaler DVCS_CALO"
+   don't forget the dot (.) and slash (/)
+
+   will start the xscaler on Left or Right HRS
+   scalers respectively.  
+
+   This is the ROOT/C++/Linux version of xscaler 
+  (not to be confused with the old Motif/C/SunOS version)
+
+   Clicking on a button corresponding to a channel will
+   pop up a history graph.  If you want to monitor the
+   target thickness you need to go to the "norm" page
+   (for normalization scaler) and press "trigger-1" or
+   "trigger-3" to monitor the history.  You need to
+   press the button to update the chart.  Note, the trigger
+   is not normalized the the beam current.  But this is
+   handled better by the strip chart (see #1.).  
+
+
+ 3. NTUPLE OF SCALERS for 1 run
+ ===============================
+
+   "./tscalntup /adaql2/data2/e01015_1417.dat.0 Right"
+   don't forget the dot (.) and slash (/)
+
+   This will analyze run 1417 (you must give the full
+   path name) and the Right HRS scalers.  Can also say
+   "Left" in the last argument, for Left HRS scalers.
+
+   This produces a root file "scaler.root" with a
+   TNtuple "ascal".  You can do stuff like this:
+
+   To start root and open scaler.root file:   
+       root scaler.root
+
+   To check the contents of the ntuple (at the root prompt).
+      root [0] ascal->Print()
+
+   To plot trigger 1 versus time:
+       ascal->Draw("t1:time")
+
+   Other stuff at the root prompt -- try it:
+      .x beam.macro
+      .x trigger.macro
+   don't forget the dot(.) before the x   
+
+
+  4. HISTORY OF RECENT RUNS
+  =========================
+
+   ./tscalhist     
+
+    don't forget the dot(.) and the slash (/)
+    
+    After typing this, answer the obvious questions, example:
+
+    ./tscalhist
+    Enter bank 'Right' or 'Left' (spectrometer) ->
+    Left
+    enter [runlo, runhi] = interval of runs to summarize ->
+    runlo: 
+    1417
+    runhi: 
+    1420
+
+   Will get a printout of runs 1417 - 1420.
+   This also fills an ntuple, in scalerhist.root
+
+  5. QASY -- charge asymmetry
+  ===========================
+
+      Not in this directory; go to ~adaq/qasy and
+      see the README file there.
+
+
+  6. WHERE IS THE CODE ???
+  =========================
+
+      Scaler Code is in ./hana_scaler
+      Strip chart macro in ./stripchart
+
+      For the scaler code you can "make xscaler" or "make tscalntup" 
+      or "make tscalhist".  to make the above codes.
+      Relevant sources are tscalgui_main.C, tscalntup_main.C
+      and tscalhist_main.C
+
+      Make sure to control the Init() method.  With no argument
+      the default is now.  Otherwise it picks out a certain date
+      in the scaler.map file, according to the rules (picks the
+      map of the latest date before the specified date).
+
+      For more info about scaler code see ./hana_scaler/README
+      For more info about the strip chart see ./stripchart/README
+
+
+
+
+
+
+ 
+   
+
