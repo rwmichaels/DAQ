@@ -1,0 +1,17 @@
+R. Michaels, Jan 30, 2015
+
+Example to read a CODA file.  Oh, and for writing one you
+can use evWrite instead of evRead.  rwcoda_split.c is an
+example of that -- it splits CODA files.
+
+The code is rwcoda.c
+
+to compile type "make"
+
+to run
+
+./rwcoda /home/compton/data/raw/run1121.dat 50
+
+where the 1st arg is the file and the 2nd arg is the number of events.
+
+
